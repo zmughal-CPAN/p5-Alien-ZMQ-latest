@@ -5,9 +5,18 @@ plugin 'PkgConfig' => 'libzmq';
 # http://zeromq.org/
 share {
 	my $prefer_cmake = 0;
+	my $make = '%{make}';
 	if( $prefer_cmake ) {
+		# use cmake
 		requires 'Alien::cmake3';
+	} else {
+		# use autoconf
+		if( $^O eq 'freebsd' ) {
+			requires 'Alien::gmake' => 0.14;
+			$make = '%{gmake}';
+		}
 	}
+
 
 	plugin Download => (
 		url => 'https://github.com/zeromq/libzmq/releases',
@@ -28,8 +37,8 @@ share {
 				qw(-S .),
 				qw(-B build),
 			],
-			[ '%{make}', qw( -C build ) ],
-			[ '%{make}', qw( -C build ), 'install' ],
+			[ $make, qw( -C build ) ],
+			[ $make, qw( -C build ), 'install' ],
 		];
 	} else {
 		plugin 'Build::Autoconf';
@@ -43,8 +52,8 @@ share {
 				( $enable_static ? '--enable-static' : '--disable-static' ),
 				'--enable-shared',
 			),
-			[ '%{make}', @make_stub_tests ],
-			[ '%{make}', 'install', @make_stub_tests ],
+			[ $make, @make_stub_tests ],
+			[ $make, 'install', @make_stub_tests ],
 		];
 	}
 
