@@ -4,7 +4,14 @@ plugin 'PkgConfig' => 'libzmq';
 
 # http://zeromq.org/
 share {
-	my $prefer_cmake = 0;
+	# $ENV{ALIEN_ZMQ_LATEST_BUILD_CONFIG} = (cmake|autoconf)
+	my $has_build_conf_pref = exists $ENV{ALIEN_ZMQ_LATEST_BUILD_CONFIG};
+	my $prefer_cmake =
+		(
+			$has_build_conf_pref
+			&& $ENV{ALIEN_ZMQ_LATEST_BUILD_CONFIG} eq 'cmake';
+		)
+		|| 0;
 	my $make = '%{make}';
 	if( $prefer_cmake ) {
 		# use cmake
