@@ -11,7 +11,10 @@ plugin 'PkgConfig' => 'libzmq';
 share {
 	requires 'File::Which';
 
-	my $default_build_conf_pref = BUILD_CONF_PREF_AUTOCONF;
+	my $default_build_conf_pref =
+		$^O ne 'MSWin32'
+		? BUILD_CONF_PREF_AUTOCONF
+		: BUILD_CONF_PREF_CMAKE;
 	my $build_conf_pref =
 		exists $ENV{ALIEN_ZMQ_LATEST_BUILD_CONFIG} && $ENV{ALIEN_ZMQ_LATEST_BUILD_CONFIG}
 		? $ENV{ALIEN_ZMQ_LATEST_BUILD_CONFIG}
