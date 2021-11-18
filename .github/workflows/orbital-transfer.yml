@@ -10,21 +10,30 @@ on:
 
 jobs:
   build:
-    name: "${{ matrix.os }} (alien_install_type: ${{ matrix.alien_install_type }}) ${{ matrix.joblabel }}"
+    name: "${{ matrix.os }} (alien_install_type: ${{ matrix.alien_install_type }}) (build_config_pref: ${{ matrix.build_config_pref }}) ${{ matrix.joblabel }}"
     runs-on: ${{ matrix.os }}
     env:
       ORBITAL_COVERAGE:    ${{ matrix.coverage }}
       ALIEN_INSTALL_TYPE:  ${{ matrix.alien_install_type }}
+      ALIEN_ZMQ_LATEST_BUILD_CONFIG: ${{ matrix.build_config_pref }}
     strategy:
       fail-fast: true
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
         coverage: ['']
         alien_install_type: [ 'share', 'system' ]
+        build_config_pref: ['']
         include:
           - os: 'ubuntu-latest'
             coverage: coveralls
             joblabel: '(Coverage)'
+          - os: 'ubuntu-latest'
+            alien_install_type: 'share'
+            build_config_pref: 'autoconf'
+          - os: 'ubuntu-latest'
+            alien_install_type: 'share'
+            build_config_pref: 'cmake'
+
     steps:
       - uses: actions/checkout@v2
 

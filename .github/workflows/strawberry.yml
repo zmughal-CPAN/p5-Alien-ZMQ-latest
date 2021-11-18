@@ -1,4 +1,4 @@
-name: Run Tests
+name: Strawberry Perl
 
 on:
   push:
@@ -11,10 +11,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       AUTHOR_TESTING: 1
+      ALIEN_ZMQ_LATEST_BUILD_CONFIG: ${{ matrix.build_config_pref }}
     strategy:
       matrix:
         os: ['windows-latest']
-    name: Strawberry Perl on ${{ matrix.os }}
+        build_config_pref: ['autoconf', 'cmake', '']
+    name: "Strawberry Perl on ${{ matrix.os }} (build_config_pref: ${{ matrix.build_config_pref }})"
 
     steps:
       - uses: actions/checkout@v2
