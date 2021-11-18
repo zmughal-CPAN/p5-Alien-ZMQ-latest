@@ -9,6 +9,8 @@ plugin 'PkgConfig' => 'libzmq';
 
 # http://zeromq.org/
 share {
+	requires 'File::Which';
+
 	my $default_build_conf_pref = BUILD_CONF_PREF_AUTOCONF;
 	my $build_conf_pref =
 		exists $ENV{ALIEN_ZMQ_LATEST_BUILD_CONFIG} && $ENV{ALIEN_ZMQ_LATEST_BUILD_CONFIG}
@@ -64,6 +66,10 @@ EOF
 				'-DCMAKE_INSTALL_PREFIX:PATH=%{.install.prefix}',
 				"-DBUILD_STATIC=@{[ $enable_static ? 'ON' : 'OFF' ]}",
 				"-DZMQ_BUILD_TESTS=@{[ $enable_tests ? 'ON' : 'OFF' ]}",
+				( $^O eq 'MSWin32'
+					? ( '-DPKG_CONFIG_EXECUTABLE=' . File::Which::which('pkg-config'), )
+					: ()
+				),
 				qw(-S .),
 				qw(-B build),
 			],
