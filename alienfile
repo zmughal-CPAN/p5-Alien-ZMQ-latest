@@ -73,6 +73,10 @@ EOF
 					? ( '-DPKG_CONFIG_EXECUTABLE=' . File::Which::which('pkg-config'), )
 					: ()
 				),
+				( meta->prop->{platform}->{system_type} eq 'windows-mingw'
+				? ( '-DZMQ_HAVE_IPC=OFF' )
+				: ()
+				),
 				qw(-S .),
 				qw(-B build),
 			],
