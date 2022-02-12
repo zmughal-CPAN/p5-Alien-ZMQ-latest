@@ -30,7 +30,7 @@ EOF
 
 	my $make = '%{make}';
 	if( $build_conf_pref eq BUILD_CONF_PREF_AUTOCONF ) {
-		if( $^O eq 'freebsd' ) {
+		if( $^O eq 'freebsd' || $^O eq 'solaris' ) {
 			requires 'Alien::gmake' => 0.14;
 			$make = '%{gmake}';
 		}
