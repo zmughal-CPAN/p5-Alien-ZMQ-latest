@@ -38,9 +38,16 @@ EOF
 		requires 'Alien::cmake3';
 	}
 
-	plugin Download => (
-		url => 'https://github.com/zeromq/libzmq/releases',
-		version => qr/zeromq-([\d\.]+)\.tar\.gz/,
+	my $zeromq_qr = qr/zeromq-([\d\.]+)\.tar\.gz/;
+	plugin 'Prefer::SortVersions' => (
+		filter => $zeromq_qr,
+	);
+
+	plugin 'Download::GitHub' => (
+		github_user => 'zeromq',
+		github_repo => 'libzmq',
+		include_assets => $zeromq_qr,
+		version => $zeromq_qr,
 	);
 
 	plugin Extract => 'tar.gz';
