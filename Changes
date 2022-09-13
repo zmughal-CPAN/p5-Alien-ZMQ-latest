@@ -1,5 +1,11 @@
+0.008 2022-09-13 17:04:23-0400
+
+  Build changes
+
    - Change from regular Download to Download::GitHub.
+     See <https://github.com/zmughal-CPAN/p5-Alien-ZMQ-latest/pull/13>.
    - Stub tests for autoconf build everywhere.
+
 0.007 2022-02-12 11:55:08-0500
 
   Build changes
