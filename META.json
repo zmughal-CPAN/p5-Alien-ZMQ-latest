@@ -69,7 +69,7 @@
          "web" : "https://github.com/zmughal-CPAN/p5-Alien-ZMQ-latest"
       }
    },
-   "version" : "0.008",
+   "version" : "0.009",
    "x_alienfile" : {
       "generated_by" : "Dist::Zilla::Plugin::AlienBuild version 0.32",
       "requires" : {
