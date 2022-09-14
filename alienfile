@@ -74,6 +74,7 @@ EOF
 		plugin 'Build::CMake';
 		build [
 			[ '%{cmake}', -G => '%{cmake_generator}',
+				'-DCMAKE_MAKE_PROGRAM:PATH=%{make}',
 				'-DCMAKE_INSTALL_PREFIX:PATH=%{.install.prefix}',
 				"-DBUILD_STATIC=@{[ $enable_static ? 'ON' : 'OFF' ]}",
 				"-DZMQ_BUILD_TESTS=@{[ $enable_tests ? 'ON' : 'OFF' ]}",
