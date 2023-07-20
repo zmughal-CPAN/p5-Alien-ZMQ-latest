@@ -17,7 +17,10 @@ jobs:
       matrix:
         os: ['windows-latest']
         build_config_pref: ['autoconf', 'cmake', '']
-    name: "Strawberry Perl on ${{ matrix.os }} (build_config_pref: ${{ matrix.build_config_pref }})"
+        perl: ['5']
+        include:
+          - { os: 'windows-latest', perl: "5.32", build_config_pref: '' }
+    name: "Strawberry Perl ${{ matrix.perl }} on ${{ matrix.os }} (build_config_pref: ${{ matrix.build_config_pref }})"
 
     steps:
       - uses: actions/checkout@v3
@@ -25,6 +28,7 @@ jobs:
         uses: shogo82148/actions-setup-perl@v1
         with:
           distribution: 'strawberry'
+          perl-version: ${{ matrix.perl }}
       - run: perl -V
       - name: Install author deps
         run: |
