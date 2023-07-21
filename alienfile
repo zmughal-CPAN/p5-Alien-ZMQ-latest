@@ -53,7 +53,7 @@ EOF
 	plugin Extract => 'tar.gz';
 
 	# Patches on top of libzmq 4.3.4.
-	my @patch_commands = map '%{patch} -p1 < %{.install.patch}/' . $_, (
+	my @patch_commands = map '%{patch} -d src -p2 < %{.install.patch}/' . $_, (
 		'4213.patch',
 		'4480.patch',
 		'4494.patch',
