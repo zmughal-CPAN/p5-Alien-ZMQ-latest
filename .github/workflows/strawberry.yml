@@ -13,6 +13,7 @@ jobs:
       AUTHOR_TESTING: 1
       ALIEN_ZMQ_LATEST_BUILD_CONFIG: ${{ matrix.build_config_pref }}
     strategy:
+      fail-fast: false
       matrix:
         os: ['windows-latest']
         build_config_pref: ['autoconf', 'cmake', '']
